@@ -1,5 +1,9 @@
-// Peano numbers
 
+/**
+  * 4.1
+  */
+
+// Peano numbers
 abstract class Nat {
   def isZero: Boolean
   def predecessor: Nat
@@ -30,3 +34,32 @@ two.predecessor == one
 
 val three = one + two
 three.predecessor.predecessor.predecessor == zero
+
+/**
+  * 4.2
+  */
+
+trait List[T] {
+  def isEmpty: Boolean
+  def head: T
+  def tail: List[T]
+}
+
+class Cons[T](val head: T, val tail: List[T]) extends List[T] {
+  def isEmpty = false
+}
+
+class Nil[T] extends List[T] {
+  def isEmpty = true
+  def head = throw new NoSuchElementException("Nil.head")
+  def tail = throw new NoSuchElementException("Nil.tail")
+}
+
+object List {
+  def apply[T]() = new Nil
+  def apply[T](x: T) = new Cons(x, new Nil)
+  def apply[T](x: T, y: T) = new Cons(x, new Cons(y, new Nil))
+}
+
+val twothree = List(2, 3)
+twothree.head
